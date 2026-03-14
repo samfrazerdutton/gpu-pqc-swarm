@@ -1,0 +1,158 @@
+[PQC Bridge] Loading PTX: /home/samfrazerdutton/qswarm/pqc_pipeline/kernels/mlkem_kernel.ptx
+[PQC Bridge] ML-KEM-768 + ML-DSA-65 kernels loaded.
+
+  [ NTT Benchmark ]
+[NTT KEM]    8192 NTTs in 0.176ms (46.439M/sec)
+
+▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓
+  DEMO 7: Secure Command Link
+  ML-KEM-768 (confidentiality) + ML-DSA-65 (authenticity)
+  Peers: 10  |  FIPS 203 + FIPS 204
+▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓
+
+[ Step 1 ] Authority generates ML-DSA-65 signing keypair...
+[DSA KeyGen] 1 keypairs in 0.215ms (4647/sec)
+  Authority PK: [38, 243, 202, 185, 129, 31, 215, 221]... (1952 bytes)
+  Authority SK: [SEALED]  (4032 bytes)
+
+[ Step 2 ] 10 peers generate ML-KEM-768 keypairs...
+[KEM KeyGen] 10 pairs in 0.125ms (80067/sec)
+
+[ Step 3 ] Authority encapsulates 10 session keys...
+[KEM Encaps] 10 pairs in 0.122ms (81986/sec)
+
+[ Step 4 ] 10 peers decapsulate session keys...
+[KEM Decaps] 10 pairs in 0.175ms (57057/sec)
+
+[ Step 5 ] Authority signs command with ML-DSA-65...
+[DSA Sign]   1 signatures in 0.182ms (5498/sec)
+  Command:   EXECUTE:MISSION_ALPHA|WAYPOINT:53.48,-2.24|ALT:120|RULES_OF_ENGAGEMENT:HOLD
+  Signature: [105, 124, 195, 45, 197, 135, 49, 149, 180, 108, 30, 245, 176, 254, 8, 200]... (3309 bytes)
+
+[ Step 6 ] 10 peers verify signature simultaneously on GPU...
+[DSA Verify] 10 verifications in 0.210ms (47632/sec) — 10/10 valid
+
+[ Step 7 ] Tamper test — injecting forged command...
+[DSA Verify] 10 verifications in 0.103ms (97197/sec) — 0/10 valid
+  Forged command rejected by: 10/10 peers ✓
+
+[ Step 8 ] Encrypting authenticated command for all peers...
+  Sample encrypted command (peer 0): 174244f9887af1fe19f7b29c95fc634458f54390... (103 bytes)
+  5 commands encrypted in 3.52ms
+
+══════════════════════════════════════════════════════════════
+  SECURE COMMAND LINK — RESULTS
+  ──────────────────────────────────────────────────────────
+  KEM sessions established: 10/10
+  DSA signatures verified:  10/10 ✓
+  Forged commands rejected: 10/10 ✓
+  Total pipeline time:      19.53ms
+  ──────────────────────────────────────────────────────────
+  Security guarantee:
+    Confidentiality → ML-KEM-768 (FIPS 203) + AES-256-GCM
+    Authenticity    → ML-DSA-65  (FIPS 204)
+    Quantum-safe    → Both algorithms NIST-standardised
+══════════════════════════════════════════════════════════════
+
+
+▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓
+  DEMO 7: Secure Command Link
+  ML-KEM-768 (confidentiality) + ML-DSA-65 (authenticity)
+  Peers: 100  |  FIPS 203 + FIPS 204
+▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓
+
+[ Step 1 ] Authority generates ML-DSA-65 signing keypair...
+[DSA KeyGen] 1 keypairs in 0.181ms (5535/sec)
+  Authority PK: [167, 177, 236, 28, 207, 80, 90, 255]... (1952 bytes)
+  Authority SK: [SEALED]  (4032 bytes)
+
+[ Step 2 ] 100 peers generate ML-KEM-768 keypairs...
+[KEM KeyGen] 100 pairs in 0.100ms (1001512/sec)
+
+[ Step 3 ] Authority encapsulates 100 session keys...
+[KEM Encaps] 100 pairs in 0.155ms (647144/sec)
+
+[ Step 4 ] 100 peers decapsulate session keys...
+[KEM Decaps] 100 pairs in 0.077ms (1297454/sec)
+
+[ Step 5 ] Authority signs command with ML-DSA-65...
+[DSA Sign]   1 signatures in 0.043ms (23009/sec)
+  Command:   EXECUTE:MISSION_ALPHA|WAYPOINT:53.48,-2.24|ALT:120|RULES_OF_ENGAGEMENT:HOLD
+  Signature: [140, 207, 228, 126, 206, 97, 54, 106, 172, 156, 163, 237, 211, 69, 210, 255]... (3309 bytes)
+
+[ Step 6 ] 100 peers verify signature simultaneously on GPU...
+[DSA Verify] 100 verifications in 0.109ms (914394/sec) — 100/100 valid
+
+[ Step 7 ] Tamper test — injecting forged command...
+[DSA Verify] 100 verifications in 0.077ms (1307138/sec) — 0/100 valid
+  Forged command rejected by: 100/100 peers ✓
+
+[ Step 8 ] Encrypting authenticated command for all peers...
+  Sample encrypted command (peer 0): a1bf93f1a598992969610ef356fe4a695c6ad051... (103 bytes)
+  5 commands encrypted in 0.09ms
+
+══════════════════════════════════════════════════════════════
+  SECURE COMMAND LINK — RESULTS
+  ──────────────────────────────────────────────────────────
+  KEM sessions established: 100/100
+  DSA signatures verified:  100/100 ✓
+  Forged commands rejected: 100/100 ✓
+  Total pipeline time:      3.90ms
+  ──────────────────────────────────────────────────────────
+  Security guarantee:
+    Confidentiality → ML-KEM-768 (FIPS 203) + AES-256-GCM
+    Authenticity    → ML-DSA-65  (FIPS 204)
+    Quantum-safe    → Both algorithms NIST-standardised
+══════════════════════════════════════════════════════════════
+
+
+▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓
+  DEMO 7: Secure Command Link
+  ML-KEM-768 (confidentiality) + ML-DSA-65 (authenticity)
+  Peers: 1000  |  FIPS 203 + FIPS 204
+▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓
+
+[ Step 1 ] Authority generates ML-DSA-65 signing keypair...
+[DSA KeyGen] 1 keypairs in 0.063ms (15956/sec)
+  Authority PK: [244, 215, 84, 1, 181, 20, 100, 246]... (1952 bytes)
+  Authority SK: [SEALED]  (4032 bytes)
+
+[ Step 2 ] 1000 peers generate ML-KEM-768 keypairs...
+[KEM KeyGen] 1000 pairs in 0.141ms (7092752/sec)
+
+[ Step 3 ] Authority encapsulates 1000 session keys...
+[KEM Encaps] 1000 pairs in 0.415ms (2408275/sec)
+
+[ Step 4 ] 1000 peers decapsulate session keys...
+[KEM Decaps] 1000 pairs in 0.251ms (3979007/sec)
+
+[ Step 5 ] Authority signs command with ML-DSA-65...
+[DSA Sign]   1 signatures in 0.136ms (7359/sec)
+  Command:   EXECUTE:MISSION_ALPHA|WAYPOINT:53.48,-2.24|ALT:120|RULES_OF_ENGAGEMENT:HOLD
+  Signature: [234, 32, 181, 112, 14, 50, 181, 155, 211, 235, 223, 120, 139, 112, 164, 12]... (3309 bytes)
+
+[ Step 6 ] 1000 peers verify signature simultaneously on GPU...
+[DSA Verify] 1000 verifications in 0.441ms (2267183/sec) — 1000/1000 valid
+
+[ Step 7 ] Tamper test — injecting forged command...
+[DSA Verify] 1000 verifications in 0.300ms (3332256/sec) — 0/1000 valid
+  Forged command rejected by: 1000/1000 peers ✓
+
+[ Step 8 ] Encrypting authenticated command for all peers...
+  Sample encrypted command (peer 0): 76a524bcc1629f53f5528de64f37bff517cc4b74... (103 bytes)
+  5 commands encrypted in 0.09ms
+
+══════════════════════════════════════════════════════════════
+  SECURE COMMAND LINK — RESULTS
+  ──────────────────────────────────────────────────────────
+  KEM sessions established: 1000/1000
+  DSA signatures verified:  1000/1000 ✓
+  Forged commands rejected: 1000/1000 ✓
+  Total pipeline time:      31.43ms
+  ──────────────────────────────────────────────────────────
+  Security guarantee:
+    Confidentiality → ML-KEM-768 (FIPS 203) + AES-256-GCM
+    Authenticity    → ML-DSA-65  (FIPS 204)
+    Quantum-safe    → Both algorithms NIST-standardised
+══════════════════════════════════════════════════════════════
+
