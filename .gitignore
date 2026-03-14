@@ -1,0 +1,18 @@
+# Environments
+qswarm_env/
+env/
+venv/
+
+# Python Cache
+__pycache__/
+*.pyc
+*.pyo
+
+# Compiled Binaries
+*.ptx
+*.cubin
+*.so*
+*.a
+
+# OS generated files
+.DS_Store
