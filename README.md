@@ -21,3 +21,29 @@ This repository contains a high-performance, GPU-accelerated Post-Quantum Crypto
 
 ## Architecture
 Designed for topology-agnostic session management, supporting Star, Mesh, Ring, and Broadcast networks. Utilizes JIT kernel offloading to dynamically compile operations directly in VRAM, eliminating host-to-device memory transfer latency.
+## Live Hardware Benchmark Output
+Executing the pipeline against the custom C++ CUDA NTT kernel for a 1,000-node drone swarm routing simulation:
+
+```text
+▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓
+  DEMO 6: Scale Test — 1000 node star
+▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓
+
+══════════════════════════════════════════════════════════════
+  PQC PIPELINE  |  1000-node star exchange
+  Pairs: 1000  |  Algorithm: ML-KEM-768 (FIPS 203)
+══════════════════════════════════════════════════════════════
+
+  [ KeyGen ] 1000 responders...
+  [ Encaps ] 1000 pairs...
+  [ Decaps ] 1000 pairs...
+  [ Derive ] 1000 session keys via HKDF-SHA3-256...
+
+  ──────────────────────────────────────────────────────────
+  KeyGen:       7.40 ms  (1000 responders)
+  Encaps:       5.10 ms  (1000 pairs)
+  Decaps:       3.91 ms  (1000 pairs)
+  Total:       32.06 ms  (0.032 ms/pair)
+  Sessions: 1000/1000 established
+  Agreement:1000/1000 (✓ Verified (Constant-Time))
+  ──────────────────────────────────────────────────────────
